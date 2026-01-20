@@ -5,7 +5,7 @@
     target_schema='snapshots',
     unique_key='customer_id',
     strategy='timestamp',
-    updated_at='updated_at'
+    updated_at='created_at'
   )
 }}
 
@@ -15,7 +15,7 @@ SELECT
   last_name,
   email,
   city,
-  updated_at
+  created_at
 FROM {{ source('raw', 'customers') }}
 
 {% endsnapshot %}
