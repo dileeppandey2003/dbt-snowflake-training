@@ -1,8 +1,9 @@
 version: 2
 
 models:
-  - name: scd1_customers
+  - name: inc_orders
+    description: "Incremental orders model from raw.orders"
     columns:
-      - name: customer_id
+      - name: order_amount
         tests:
-          - not_null_generic
+          - is_positive
