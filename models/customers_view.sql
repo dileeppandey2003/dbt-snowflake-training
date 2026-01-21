@@ -1,7 +1,23 @@
+{{ config(
+    pre_hook = "
+        insert into dbt_db.analytics.model_audit_log
+        (model_name, run_status, start_time)
+        values
+        ('customers_view', 'STARTED', current_timestamp)
+    ",
+    post_hook = "
+        update dbt_db.analytics.model_audit_log
+        set run_status = 'COMPLETED',
+            end_time = current_timestamp
+        where model_name = 'customers_view'
+          and run_status = 'STARTED'
+    "
+) }}
+
 select
     customer_id,
-    {{ to_upper('first_name') }} as first_name,
-    {{ to_upper('last_name') }}  as last_name,
+    first_name,
+    last_name,
     email,
     city,
     created_at
